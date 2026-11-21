@@ -1,0 +1,129 @@
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&display=swap");
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; padding: 0; font-family: "Inconsolata", monospace;
+  font-size: 14px; color: white; background: #f1f1f1;
+  user-select: none; -webkit-user-select: none; overflow: hidden;
+}
+.header {
+  position: fixed; top: 0; left: 0; width: 100%; min-height: 76px;
+  padding: 10px clamp(16px, 4vw, 48px); display: flex; align-items: center;
+  justify-content: space-between; gap: 14px; color: #fff;
+  background: rgba(20, 32, 45, .94);
+  border-bottom: 2px solid #e5a43b;
+  box-shadow: 0 3px 12px rgba(0,0,0,.18);
+  z-index: 100; pointer-events: none;
+}
+.header-brand { display: flex; align-items: center; gap: 12px; }
+.header-logo {
+  width: 48px; height: 48px; flex: 0 0 48px; display: grid; place-items: center;
+  border: 1px solid rgba(243,182,78,.8); border-radius: 12px;
+  background: rgba(243,182,78,.10);
+}
+.header-logo svg { width: 42px; height: 42px; }
+.header h1 {
+  margin: 0; color: #fff; font-family: Arial,sans-serif;
+  font-size: clamp(18px, 2.5vw, 25px); font-weight: 900;
+  letter-spacing: 1.5px; line-height: 1.1;
+}
+.header h1 span { color: #f3b64e; }
+.header p {
+  margin: 5px 0 0; color: #c6d0da; font-family: Arial,sans-serif;
+  font-size: 8px; font-weight: 700; letter-spacing: 1.5px;
+}
+.header-right { display: flex; align-items: center; gap: 12px; }
+.header-number { color: #b8c3ce; font-size: 9px; letter-spacing: 1px; white-space: nowrap; }
+.header-number strong { color: #f3b64e; font-size: 12px; margin-left: 4px; }
+.header-tag {
+  padding: 7px 11px; border: 1px solid rgba(243,182,78,.55);
+  border-radius: 4px; color: #f3b64e; background: rgba(243,182,78,.06);
+  font-size: 9px; font-weight: 700; letter-spacing: 1px; white-space: nowrap;
+}
+/* The game drawing uses the full viewport as its coordinate system. */
+#game { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 1; }
+button {
+  cursor: pointer; border: none; color: white; background: transparent;
+  font-family: "Inconsolata", monospace; padding: 10px; font-size: 1em;
+}
+button:hover { background-color: rgba(255,255,255,.1); }
+#info-left, #info-right { position: absolute; top: 120px; z-index: 10; }
+#info-left { left: 25px; }
+#info-right { right: 25px; text-align: right; }
+#bomb-grab-area {
+  position: absolute; width: 30px; height: 30px; border-radius: 50%;
+  background: transparent; cursor: grab; z-index: 20; touch-action: none;
+}
+#instructions, #congratulations {
+  position: absolute; transition: visibility 0s, opacity .5s linear; z-index: 30;
+}
+#instructions { top: 50%; left: 50%; transform: translate(-50%,-50%); text-align: center; }
+@media (min-height: 535px) { #instructions { min-height: 200px; } }
+#congratulations {
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+  background: rgba(255,255,255,.9); color: black; padding: 30px;
+  opacity: 0; visibility: hidden; max-width: 300px; width: 90%; backdrop-filter: blur(5px);
+}
+#congratulations p a { color: inherit; }
+#congratulations button { border: 1px solid rgba(0,0,0,.9); color: inherit; }
+#settings {
+  position: absolute; top: 110px; display: flex; align-items: center;
+  gap: 10px; right: 11em; z-index: 40;
+}
+#settings, #info-left, #info-right { opacity: 0; transition: opacity .5s; }
+.dropdown { position: relative; display: inline-block; }
+.dropbtn:after { content: "▼"; margin-left: 7px; font-size: .8em; vertical-align: text-top; }
+.dropdown-content {
+  display: none; position: absolute; background: #f9f9f9; min-width: 120px;
+  box-shadow: 0 8px 16px rgba(0,0,0,.2); z-index: 50;
+}
+.dropdown-content a {
+  color: black; padding: 12px 16px; text-decoration: none; display: block;
+  white-space: nowrap; font-size: .9em;
+}
+.dropdown-content a:hover { background: #f1f1f1; }
+.dropdown:hover .dropdown-content, .dropdown:focus-within .dropdown-content { display: block; }
+#windmill { position: absolute; right: 0; fill: rgba(255,255,255,.5); transform-origin: bottom; z-index: 5; pointer-events: none; }
+#windmill-head { animation: rotate 4s linear infinite; }
+@keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+#wind-info { position: absolute; width: 100px; text-align: center; margin-bottom: 30px; z-index: 10; }
+#fullscreen {
+  all: unset; cursor: pointer; position: absolute; right: 10px; bottom: 75px; z-index: 80;
+}
+.footer {
+  position: fixed; bottom: 0; left: 0; width: 100%; min-height: 48px;
+  padding: 8px clamp(14px, 3vw, 40px); display: flex; align-items: center;
+  justify-content: space-between; gap: 12px; color: #dce4ec;
+  background: rgba(20, 32, 45, .95);
+  border-top: 1px solid rgba(243,182,78,.75);
+  z-index: 100; pointer-events: none;
+}
+.footer-credit { display: flex; align-items: center; gap: 9px; }
+.footer-credit p { margin: 0; font-family: Arial,sans-serif; font-size: 9px; letter-spacing: 1px; }
+.footer-credit strong { color: #f3b64e; letter-spacing: 1.4px; }
+.footer-line { width: 18px; height: 2px; background: #e5a43b; }
+.footer-stats { display: flex; align-items: center; gap: clamp(9px, 2vw, 22px); color: #aebbc8; font-size: 8px; letter-spacing: .9px; }
+.footer-stats span { white-space: nowrap; }
+.footer-stats strong { color: #f3b64e; font-size: 10px; margin-right: 4px; }
+.footer-version { color: #9aa8b6; font-size: 8px; letter-spacing: 1px; white-space: nowrap; }
+.footer-version b { color: #f3b64e; margin-left: 4px; }
+@media (max-width: 450px) {
+  #settings, #info-left, #info-right { opacity: 0; }
+  #instructions { visibility: hidden; }
+  .header { min-height: 64px; padding: 8px 10px; }
+  .header-logo { width: 40px; height: 40px; flex-basis: 40px; border-radius: 10px; }
+  .header-logo svg { width: 35px; height: 35px; }
+  .header-brand { gap: 8px; }
+  .header h1 { font-size: 16px; letter-spacing: .8px; }
+  .header p { font-size: 6px; letter-spacing: .5px; }
+  .header-tag, .header-number { display: none; }
+  .footer { min-height: 42px; padding: 7px 9px; gap: 6px; }
+  .footer-credit { gap: 5px; }
+  .footer-credit p { font-size: 7px; letter-spacing: .3px; }
+  .footer-line { width: 10px; }
+  .footer-stats { gap: 6px; font-size: 6px; letter-spacing: .1px; }
+  .footer-stats strong { font-size: 7px; margin-right: 2px; }
+  .footer-version { display: none; }
+  #congratulations { padding: 20px; }
+  #settings { right: 5px; top: 105px; gap: 2px; }
+}
